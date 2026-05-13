@@ -200,26 +200,32 @@
       };
 
       document.getElementById('save-base-btn').onclick = async () => {
-          const th = document.getElementById('base-th').value;
-          const title = document.getElementById('base-title').value;
-          const imgUrl = document.getElementById('base-img').value;
-          const link = document.getElementById('base-link').value;
-          const editId = document.getElementById('edit-base-id').value;
+          try {
+              const th = document.getElementById('base-th').value;
+              const title = document.getElementById('base-title').value;
+              const imgUrl = document.getElementById('base-img').value;
+              const link = document.getElementById('base-link').value;
+              const editId = document.getElementById('edit-base-id').value;
 
-          if(!th || !title || !link) return alert("TH Level, Title, and Link are required!");
+              if(!th || !title || !link) return alert("TH Level, Title, and Link are required!");
 
-          const data = { th: parseInt(th), title, imgUrl, link };
-          document.getElementById('save-base-btn').innerText = "Processing...";
+              const data = { th: parseInt(th), title, imgUrl, link };
+              document.getElementById('save-base-btn').innerText = "Processing...";
 
-          if(editId) {
-              await updateDoc(doc(db, "farming_bases", editId), data);
-              document.getElementById('base-msg').innerText = "Base Updated!";
-          } else {
-              await addDoc(collection(db, "farming_bases"), data);
-              document.getElementById('base-msg').innerText = "Base Added!";
+              if(editId) {
+                  await updateDoc(doc(db, "farming_bases", editId), data);
+                  document.getElementById('base-msg').innerText = "Base Updated!";
+              } else {
+                  await addDoc(collection(db, "farming_bases"), data);
+                  document.getElementById('base-msg').innerText = "Base Added!";
+              }
+              resetBaseForm();
+              fetchBases();
+          } catch (error) {
+              console.error(error);
+              alert("Error: " + error.message);
+              document.getElementById('save-base-btn').innerText = "Save Base";
           }
-          resetBaseForm();
-          fetchBases();
       };
 
       function resetBaseForm() {
@@ -293,26 +299,32 @@
       };
 
       document.getElementById('save-rule-btn').onclick = async () => {
-          const title = document.getElementById('rule-title').value;
-          const editId = document.getElementById('edit-rule-id').value;
-          
-          if(!title) return alert("Section title is required!");
+          try {
+              const title = document.getElementById('rule-title').value;
+              const editId = document.getElementById('edit-rule-id').value;
+              
+              if(!title) return alert("Section title is required!");
 
-          const points = document.getElementById('rule-points').value.split('\n').filter(p => p.trim() != '');
-          const imgs = document.getElementById('rule-images').value.split('\n').filter(i => i.trim() != '');
-          
-          document.getElementById('save-rule-btn').innerText = "Processing...";
+              const points = document.getElementById('rule-points').value.split('\n').filter(p => p.trim() != '');
+              const images = document.getElementById('rule-images').value.split('\n').filter(i => i.trim() != '');
+              
+              document.getElementById('save-rule-btn').innerText = "Processing...";
 
-          if(editId) {
-              await updateDoc(doc(db, "rule_sections", editId), { title, points, images });
-              document.getElementById('rule-msg').innerText = "Section Updated!";
-          } else {
-              const data = { title, points, images, timestamp: Date.now() };
-              await addDoc(collection(db, "rule_sections"), data);
-              document.getElementById('rule-msg').innerText = "New Section Added!";
+              if(editId) {
+                  await updateDoc(doc(db, "rule_sections", editId), { title, points, images });
+                  document.getElementById('rule-msg').innerText = "Section Updated!";
+              } else {
+                  const data = { title, points, images, timestamp: Date.now() };
+                  await addDoc(collection(db, "rule_sections"), data);
+                  document.getElementById('rule-msg').innerText = "New Section Added!";
+              }
+              resetRuleForm();
+              fetchRules();
+          } catch (error) {
+              console.error(error);
+              alert("Error: " + error.message);
+              document.getElementById('save-rule-btn').innerText = "Save Rule Section";
           }
-          resetRuleForm();
-          fetchRules();
       };
 
       function resetRuleForm() {
