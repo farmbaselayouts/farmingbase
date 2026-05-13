@@ -51,11 +51,11 @@ body {
     align-items: center;
 }
 
-/* Dropdown Styles - Fixed Hover Issue */
+/* Dropdown Styles */
 .dropdown {
     position: relative;
     display: inline-block;
-    padding-bottom: 15px; /* এটি কার্সর পিছলে যাওয়া রোধ করবে */
+    padding-bottom: 15px; 
     margin-bottom: -15px;
 }
 
@@ -77,7 +77,7 @@ body {
     display: none;
     position: absolute;
     right: 0;
-    top: 100%; /* একদম লেখার নিচ থেকে শুরু হবে */
+    top: 100%; 
     background-color: #1a1b22;
     min-width: 200px;
     box-shadow: 0px 8px 20px 0px rgba(0,0,0,0.6);
@@ -100,7 +100,7 @@ body {
 .dropdown-content a:last-child { border-bottom: none; }
 .dropdown-content a:hover { background-color: #2d2e37; color: #3b82f6; padding-left: 20px; }
 
-/* Show dropdown on hover */
+/* Show dropdown on hover (Desktop) */
 .dropdown:hover .dropdown-content { display: block; }
 
 /* Mobile Menu Toggle */
@@ -121,7 +121,7 @@ body {
 }
 
 .content-section {
-    padding-top: 100px; /* Navbar এর নিচে ঢাকা না পড়ার জন্য গ্যাপ বাড়ানো হলো */
+    padding-top: 100px; 
     margin-top: -60px; 
 }
 
@@ -135,7 +135,7 @@ body {
 }
 
 /* =========================================
-   4. Base Layout Styles - Fixed PC Image Cutting
+   4. Base Layout Styles 
 ========================================= */
 .th-section-title { font-size: 24px; margin: 40px 0 20px; border-left: 5px solid #3b82f6; padding-left: 15px; color: #f1c40f; }
 .base-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
@@ -144,10 +144,10 @@ body {
 
 .base-img { 
     width: 100%; 
-    height: 180px; /* PC-তে ফ্রেমের উচ্চতা */
-    object-fit: contain; /* NOW: পুরো ছবি দেখা যাবে, কেটে যাবে না */
-    background: #2d2e37; /* ফ্রেমে ফাঁকা জায়গা থাকলে এই কালার দেখাবে */
-    padding: 10px; /* ছবির চারপাশে একটু গ্যাপ, দেখতে ভালো লাগবে */
+    height: 180px; 
+    object-fit: contain; 
+    background: #2d2e37; 
+    padding: 10px; 
 }
 
 .base-info { padding: 15px; }
@@ -156,10 +156,10 @@ body {
 .copy-btn:hover { background: #2ecc71; transform: scale(1.02); }
 
 /* =========================================
-   5. Rules Section Styles - Fixed Rule Image Cutting
+   5. Rules Section Styles 
 ========================================= */
 .rule-section-container { background: #1a1b22; border-radius: 12px; border: 1px solid #2d2e37; padding: 30px; margin-bottom: 30px; }
-.rule-section-title { font-size: 24px; color: #3b82f6; border-bottom: 2px solid #2d2e37; padding-bottom: 10px; margin-bottom: 20px; text-transform: uppercase; }
+.rule-section-title { font-size: 24px; color: #ef4444; border-bottom: 2px solid #2d2e37; padding-bottom: 10px; margin-bottom: 20px; text-transform: uppercase; }
 .rule-points-list { list-style-type: none; margin-bottom: 25px; }
 .rule-points-list li { font-size: 15px; margin-bottom: 12px; padding-left: 30px; position: relative; color: #d1d5db; }
 .rule-points-list li::before { content: "📌"; position: absolute; left: 0; top: 2px; }
@@ -167,12 +167,12 @@ body {
 .rule-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
 .rule-gallery img { 
     width: 100%; 
-    height: 250px; /* PC-তে রুলস ছবির উচ্চতা */
-    object-fit: contain; /* NOW: পুরো ছবি দেখা যাবে */
-    background: #2d2e37; /* ব্যাকগ্রাউন্ড কালার */
+    height: 250px; 
+    object-fit: contain; 
+    background: #2d2e37; 
     border-radius: 8px; 
     border: 2px solid #3b82f6; 
-    padding: 5px; /* বর্ডারের সাথে একটু গ্যাপ */
+    padding: 5px; 
 }
 
 /* =========================================
@@ -193,22 +193,29 @@ body {
     .nav-links.active { display: flex; }
     
     .dropdown { width: 100%; padding-bottom: 0; margin-bottom: 0; }
-    .dropbtn { width: 100%; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #2d2e37;}
     
+    /* মোবাইলে ড্রপডাউন বাটনটি হাইড করা হলো */
+    .dropbtn { display: none; }
+    
+    /* মোবাইলে সরাসরি অপশনগুলো শো করবে */
     .dropdown-content {
         position: relative;
-        display: none;
+        display: block; 
         width: 100%;
         box-shadow: none;
         border: none;
-        background-color: #0f1015;
+        background-color: transparent; 
         top: 0;
     }
     
-    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a { 
+        padding: 15px 10px; 
+        border-bottom: 1px solid #2d2e37; 
+        font-size: 16px;
+    }
+    
     .navbar { flex-wrap: wrap; }
     
-    /* মোবাইলের জন্য ছবির সাইজ অ্যাডজাস্টমেন্ট */
     .base-img { height: 160px; }
     .rule-gallery img { height: 180px; }
 }
