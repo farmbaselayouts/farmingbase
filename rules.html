@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base Rules - FWCB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="brand-container">
+            <img src="logo.png" alt="FWCB Logo" class="site-logo"> 
+            <h2 style="color: #3b82f6; margin: 0;">FWCB Bases</h2>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="rules.html">Rules</a>
+        </div>
+    </nav>
+
+    <div class="container" style="max-width: 900px;">
+        <h1 class="page-title">Base Layout Rules</h1>
+        <div id="rules-display" class="rules-box">
+            Loading rules...
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4hVhFlEBrdW7hF2EdLLTp6RiEaN-xxIA",
+            authDomain: "lazy-cwl-directory.firebaseapp.com",
+            projectId: "lazy-cwl-directory",
+            storageBucket: "lazy-cwl-directory.firebasestorage.app",
+            messagingSenderId: "587882023145",
+            appId: "1:587882023145:web:ee8ac1f673e7b0e3e98878"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function loadRules() {
+            try {
+                const docSnap = await getDoc(doc(db, "settings", "farming_rules"));
+                if (docSnap.exists()) {
+                    document.getElementById('rules-display').innerText = docSnap.data().content;
+                } else {
+                    document.getElementById('rules-display').innerText = "No rules have been set by the admin yet.";
+                }
+            } catch (e) { console.error(e); }
+        }
+        loadRules();
+    </script>
+</body>
+</html>
