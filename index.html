@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farming Base Layout - FWCB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="brand-container">
+            <img src="logo.png" alt="FWCB Logo" class="site-logo" onerror="this.style.display='none'"> 
+            <h2 style="color: #3b82f6; margin: 0;">FWCB Bases</h2>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="rules.html">Rules</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">Farming Base Layout</h1>
+        <div id="bases-container">
+            <p style="text-align: center; color: #888;">Loading bases...</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Copyright © 2026 FWCB - All Rights Reserved</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4hVhFlEBrdW7hF2EdLLTp6RiEaN-xxIA",
+            authDomain: "lazy-cwl-directory.firebaseapp.com",
+            projectId: "lazy-cwl-directory",
+            storageBucket: "lazy-cwl-directory.firebasestorage.app",
+            messagingSenderId: "587882023145",
+            appId: "1:587882023145:web:ee8ac1f673e7b0e3e98878"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function loadBases() {
+            const container = document.getElementById('bases-container');
+            try {
+                const querySnapshot = await getDocs(collection(db, "farming_bases"));
+                container.innerHTML = '';
+                const bases = [];
+                querySnapshot.forEach(doc => bases.push(doc.data()));
+
+                const groups = {};
+                bases.forEach(b => {
+                    if (!groups[b.th]) groups[b.th] = [];
+                    groups[b.th].push(b);
+                });
+
+                const sortedLevels = Object.keys(groups).sort((a, b) => b - a);
+
+                sortedLevels.forEach(th => {
+                    const section = document.createElement('div');
+                    section.innerHTML = `<h2 class="th-section-title">Town Hall ${th}</h2>`;
+                    const grid = document.createElement('div');
+                    grid.className = 'base-grid';
+                    groups[th].forEach(base => {
+                        grid.innerHTML += `
+                            <div class="base-card">
+                                <img src="${base.imgUrl}" class="base-img" alt="Base">
+                                <div class="base-info">
+                                    <span class="base-name">${base.title}</span>
+                                    <a href="${base.link}" target="_blank" class="copy-btn">Copy Base Link</a>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    section.appendChild(grid);
+                    container.appendChild(section);
+                });
+            } catch (e) { console.error(e); }
+        }
+        loadBases();
+    </script>
+</body>
+</html>
