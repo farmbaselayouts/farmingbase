@@ -176,21 +176,47 @@ body {
 }
 
 /* =========================================
-   6. Footer & Mobile Responsive
+   6. Footer & Social Buttons
 ========================================= */
-.footer { text-align: center; padding: 40px; background: #1a1b22; margin-top: 60px; border-top: 1px solid #2d2e37; }
+.footer { text-align: center; padding: 50px 20px; background: #1a1b22; margin-top: 60px; border-top: 1px solid #2d2e37; }
 
+.fb-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #1877F2;
+    color: #ffffff;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
+    margin-top: 15px;
+}
+
+.fb-btn:hover {
+    background-color: #166fe5;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(24, 119, 242, 0.5);
+}
+
+.fb-icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+/* =========================================
+   7. Mobile Responsive
+========================================= */
 @media (max-width: 768px) {
     .navbar { flex-wrap: wrap; padding: 15px 5%; }
     
-    /* UPDATE: Fixed the mobile header overlap issue */
-    .brand-container {
-        max-width: 85%; /* Ensures text doesn't push the menu down */
-    }
-    
-    .brand-container h2 {
-        font-size: 15px !important; /* Smaller text for mobile */
-    }
+    .brand-container { max-width: 85%; }
+    .brand-container h2 { font-size: 15px !important; }
 
     .menu-toggle { display: block; }
     
