@@ -100,7 +100,7 @@ body {
 .dropdown-content a:last-child { border-bottom: none; }
 .dropdown-content a:hover { background-color: #2d2e37; color: #3b82f6; padding-left: 20px; }
 
-/* Show dropdown on hover (Desktop) */
+/* Show dropdown on hover */
 .dropdown:hover .dropdown-content { display: block; }
 
 /* Mobile Menu Toggle */
@@ -181,6 +181,17 @@ body {
 .footer { text-align: center; padding: 40px; background: #1a1b22; margin-top: 60px; border-top: 1px solid #2d2e37; }
 
 @media (max-width: 768px) {
+    .navbar { flex-wrap: wrap; padding: 15px 5%; }
+    
+    /* UPDATE: Fixed the mobile header overlap issue */
+    .brand-container {
+        max-width: 85%; /* Ensures text doesn't push the menu down */
+    }
+    
+    .brand-container h2 {
+        font-size: 15px !important; /* Smaller text for mobile */
+    }
+
     .menu-toggle { display: block; }
     
     .nav-links {
@@ -193,11 +204,8 @@ body {
     .nav-links.active { display: flex; }
     
     .dropdown { width: 100%; padding-bottom: 0; margin-bottom: 0; }
-    
-    /* মোবাইলে ড্রপডাউন বাটনটি হাইড করা হলো */
     .dropbtn { display: none; }
     
-    /* মোবাইলে সরাসরি অপশনগুলো শো করবে */
     .dropdown-content {
         position: relative;
         display: block; 
@@ -213,8 +221,6 @@ body {
         border-bottom: 1px solid #2d2e37; 
         font-size: 16px;
     }
-    
-    .navbar { flex-wrap: wrap; }
     
     .base-img { height: 160px; }
     .rule-gallery img { height: 180px; }
